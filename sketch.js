@@ -6,28 +6,36 @@ const url ="https://api.nytimes.com/svc/topstories/v2/world.json?api-key=m2el98I
 
 let response =await  fetch (url);
 let newArticles = await response.json();
+let articleContainer= document.querySelector (".articles-container");
+console.dir (articleContainer);
 
 
-let latestNews=newArticles.results;
+let latestNews=newArticles.results; //checking all the headlines
 
 for (let i=0; i<latestNews.length; i++) { 
 
-console.log( latestNews[i].title);
-console.log( latestNews[i].abstract);
-console.log( latestNews[i].url);
-let articleUrl=latestNews[i].url;
-// document.querySelector('#articles-title').innerHTML= newArticles.response.docs[i].abstract;
-//console.log( newArticles.response.docs[i].snippet);
-document.querySelector('.articles-snippet').innerHTML= latestNews[i].title;
-document.querySelector('.lead_paragraph'). innerHTML=latestNews[i].abstract;
-document.querySelector('.articles-url').setAttribute ("href",articleUrl);
-document.querySelector('.articles-url').innerHTML=latestNews[i].title;
-document.querySelector('.image-url'). src=latestNews[i].multimedia.url;
-document.querySelector('.published-date'). innerHTML=latestNews[i].published_date;
+let header=document.createElement("h1");
+header.innerHTML= latestNews[i].title;
+articleContainer.appendChild (header);
 
-console.log (latestNews[i].multimedia.url)
-//document.querySelector ('#article-source').innerHTML=newArticles.response.docs[i].source;
-//document.querySelector ('.article-url').setAttribute=latestNews[i].url;
+let paragraph=document.createElement ("p");
+paragraph.innerHTML=latestNews[i].abstract;
+articleContainer.appendChild (paragraph);
+
+let a=document.createElement("a");
+a.setAttribute ("href",latestNews[i].url);
+a.innerHTML=latestNews[i].title;
+articleContainer.appendChild (a);
+
+// console.log (latestNews[i].multimedia[0].url);
+
+let photoCover=document.createElement('img');
+photoCover.setAttribute("src",latestNews[i].multimedia[0].url);
+articleContainer.appendChild(photoCover);
+let published=document.createElement ("p");
+published.innerHTML=latestNews[i].published_date;
+articleContainer.appendChild ( published);
+
 }
 }
 newYorkArticle ()
