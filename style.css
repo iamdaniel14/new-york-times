@@ -10,6 +10,7 @@ flex-direction: row;
 flex-wrap: wrap;
 margin-left: auto;
 margin-right: auto;
+background-color: black;
 }
 .headline-section{
 width: 600px;
@@ -26,4 +27,19 @@ img{
 }
 .headline-title{
 font-size: 20px;
+}
+
+#categoryContainer{
+ width: 1250px;
+ height: auto;
+ margin-top: 10px;
+ margin-left: auto;
+ margin-right: auto;
+ background-color: aqua;
+}
+.category-option{
+width:208.33px;
+height: 50px;
+font-size: 24px;
+background-color: brown;
 }
