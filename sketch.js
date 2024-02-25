@@ -4,36 +4,27 @@ let headlinesContainer= document.querySelector (".headlines-container");
 let newsCategory=document.querySelector('#news-category');
 let categoryContainer =document.querySelector('#categoryContainer');
 let categories=["business","sports","technology","obituaries","fashion","realestate"];
+const category="sports";
 
-let width=1250;
+let url;
+window.onload = () =>{
+url=`https://api.nytimes.com/svc/topstories/v2/${category}.json?api-key=m2el98Ix9bYGsagBRzWNVuH9ysGouuSs`;
+fetchTopStories ();
 
-let n=width/categories.length;
-
-console.log (n);
-
-
-// searchButton.addEventListener("click",headlines)
-// function headlines (event) {
-// event.preventDefault();
-// console.log(newsCategory.value);
-// }
+}
 
  async function fetchTopStories (){
 // const url ="https://api.nytimes.com/svc/topstories/v2/sports.json?api-key=m2el98Ix9bYGsagBRzWNVuH9ysGouuSs";
-
 try{
-let api="https://api.nytimes.com/svc/topstories/v2/";
-let cate="realestate";
-let datatype=".json?api-key=";
-let keys="m2el98Ix9bYGsagBRzWNVuH9ysGouuSs";
-let url= api+cate+datatype+keys;
+
+ url=`https://api.nytimes.com/svc/topstories/v2/${category}.json?api-key=m2el98Ix9bYGsagBRzWNVuH9ysGouuSs`;
 let response =await  fetch (url);
 let newArticles = await response.json();
- return newArticles .results; //checking all the headlines
+//  return newArticles .results; //checking all the headlines
+ displayTopStories(newArticles.results)
 }catch (err){
 console.log ("no data is fetch");
 console.error(err);
-
 }
 
  }
@@ -66,39 +57,44 @@ let photoCover=document.createElement('img');
 photoCover.setAttribute("src",topStory.multimedia[0].url);
 photoCover.classList.add ("headline-photo-cover")
 newsContainer.appendChild(photoCover);
-
 let published=document.createElement ("p");
 published.textContent=topStory.published_date;
 published.classList.add("headline-published");
 newsContainer.appendChild ( published);
-
 headlinesContainer.appendChild(newsContainer); //adding new div to a parent div (headlines-container);
-
 })
 
 }
 
 //define the function a execute it immediately with ()
- (async ()=> {
-    try{
-     let latestNews=  await fetchTopStories ();
-    displayTopStories(latestNews);
-    Category();
-    } catch(err){
-    console.log("failed to fetch random stories");
-    console.error(err);
-    }
+//  (async ()=> {
+//     try{
+//      latestNews= await (fetchTopStories ())
+//     displayTopStories(latestNews);
+//     } catch(err){
+//     console.log("failed to fetch random stories");
+//     console.error(err);
+//     }
+// })();
 
-})();
+const changingCategory=(e,category)=>{
+let newsCategory=document.querySelectorAll (".category-option");
+newsCategory.forEach((element)=>{
+element.classList.remove('active')
+});
 
+ url=`https://api.nytimes.com/svc/topstories/v2/${category}.json?api-key=m2el98Ix9bYGsagBRzWNVuH9ysGouuSs`;
+ e.target.classList.add("active");
+  fetchTopStories ();
+
+}
 
 function Category(){
-    for (let category of categories){
-        console.log (category);
-    let button=document.createElement('button');
-        button.textContent=category;
-        button.classList.add("category-option")
-        categoryContainer.appendChild( button);
-        console.log(categoryContainer);
-    }
+categoryContainer .innerHTML
+for (let category of categories){
+categoryContainer.innerHTML+=`<button class="category-option ${category=="sports" ? "active":""}" onclick="changingCategory(event,'${category}')">${category} </button>`
+console.log(categoryContainer);
+ }
 }
+
+Category();
