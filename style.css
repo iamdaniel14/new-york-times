@@ -10,7 +10,6 @@ flex-direction: row;
 flex-wrap: wrap;
 margin-left: auto;
 margin-right: auto;
-background-color: black;
 }
 .headline-section{
 width: 600px;
@@ -24,10 +23,12 @@ justify-content: space-around
 img{
  width: 600px;
  height: 400px;
+ 
 }
 .headline-title{
 font-size: 20px;
 }
+
 
 #categoryContainer{
  width: 1250px;
@@ -42,7 +43,32 @@ width:208.33px;
 height: 50px;
 font-size: 24px;
 background-color: brown;
+border: none;
 }
 .active{
-    background-color: black;
+background-color:white;
 }
+
+#news-category-container{
+width: 1250px;
+margin-left: auto;
+ margin-right: auto;
+
+}
+.category-title{
+font-size: 70px;
+
+}
+
+.category-title:first-letter{
+  text-transform: capitalize;
+    
+    }
+
+    .headline-link{
+ width: fit-content;
+ color: aliceblue;
+ /* background-color: brown;  */
+ font-size: 20px;
+
+    }
