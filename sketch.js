@@ -8,9 +8,7 @@ let newCategoryTitle=document.querySelector(".category-title");
  let category="sports";
 
 let url;
-
- async function fetchTopStories (category){
-
+ async function fetchTopStories (){
 try{
 
  url=`https://api.nytimes.com/svc/topstories/v2/${category}.json?api-key=m2el98Ix9bYGsagBRzWNVuH9ysGouuSs`;
@@ -60,7 +58,6 @@ a.textContent=topStory.title;
 a.innerHTML="Read more";
 a.classList.add ("headline-link");
 newsContainer.appendChild (a);
-
 headlinesContainer.appendChild(newsContainer); //adding new div to a parent div (headlines-container);
 })
 
@@ -90,8 +87,8 @@ categoryContainer.innerHTML+=`<button class="category-option ${category=="sports
  })
 }
 
-async function showNews (category){
-  let news=await fetchTopStories(category);
+async function showNews (){
+  let news=await fetchTopStories();
   displayTopStories(news);
 }
 
@@ -100,6 +97,6 @@ async function showNews (category){
 
 
 Category();
-showNews (category)
+showNews ()
 
 
